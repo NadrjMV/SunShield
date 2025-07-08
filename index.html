@@ -3,193 +3,332 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sun Shield Intelligence - Anatomia de uma Proteção de Elite</title>
+    <title>Sun Shield - Segurança e Monitoramento de Elite</title>
     
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="icon" type="image/png" href="https://sunshield.com.br/wp-content/uploads/2024/12/cropped-sunshield-1-150x150.webp">
+
+    <!-- Google Fonts: Poppins -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
-    <link rel="icon" type="image/png" href="https://sunshield.com.br/wp-content/uploads/2024/12/cropped-sunshield-1-150x150.webp">
-
+    <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" xintegrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
 
-    <header class="site-header">
-        <div class="container">
-            <img src="https://sunshield.com.br/wp-content/uploads/2024/12/cropped-sunshield-1-150x150.webp" alt="Sun Shield Logo" class="logo">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #0F172A; /* Slate 900 */
+            color: #E2E8F0; /* Slate 200 */
+        }
+
+        .text-balance { text-wrap: balance; }
+
+        .btn-gold {
+            background-color: #FBBF24; /* Amber 400 */
+            color: #1E293B; /* Slate 800 */
+            transition: all 0.3s ease;
+        }
+        .btn-gold:hover {
+            background-color: #F59E0B; /* Amber 500 */
+            box-shadow: 0 0 20px rgba(251, 191, 36, 0.3);
+        }
+        
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(2rem);
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+        }
+        .fade-in-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Client Logos Scroller */
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        .logos {
+            overflow: hidden;
+            padding: 40px 0;
+            white-space: nowrap;
+            position: relative;
+        }
+        .logos:before, .logos:after {
+            position: absolute; top: 0; width: 100px; height: 100%; content: ""; z-index: 2;
+        }
+        .logos:before { left: 0; background: linear-gradient(to left, rgba(15, 23, 42, 0), #0F172A); }
+        .logos:after { right: 0; background: linear-gradient(to right, rgba(15, 23, 42, 0), #0F172A); }
+        .logos-slide { display: inline-block; animation: scroll 30s linear infinite; }
+        .logos-slide img {
+            height: 40px;
+            margin: 0 40px;
+            transition: all 0.3s;
+            filter: grayscale(1) brightness(1.5);
+            opacity: 0.7;
+        }
+        .logos-slide img:hover {
+            filter: grayscale(0) brightness(1);
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Header -->
+    <header id="header" class="bg-slate-900/70 backdrop-blur-xl fixed top-0 left-0 right-0 z-50">
+        <div class="container mx-auto px-6">
+            <div class="flex items-center justify-between h-24">
+                <a href="#">
+                    <img src="https://sunshield.com.br/wp-content/uploads/2024/12/cropped-sunshield-1-150x150.webp" alt="Sun Shield Logo" class="h-16 w-auto">
+                </a>
+                <nav class="hidden lg:flex items-center gap-8">
+                    <a href="#services" class="text-slate-300 hover:text-amber-400 font-medium transition-colors">Serviços</a>
+                    <a href="#about" class="text-slate-300 hover:text-amber-400 font-medium transition-colors">Sobre Nós</a>
+                    <a href="#clients" class="text-slate-300 hover:text-amber-400 font-medium transition-colors">Clientes</a>
+                </nav>
+                <a href="#contact" class="hidden lg:inline-block btn-gold font-bold py-3 px-6 rounded-full">
+                    Fale Conosco
+                </a>
+                <button id="mobile-menu-button" class="lg:hidden text-slate-200"><i data-lucide="menu" class="h-7 w-7"></i></button>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden lg:hidden bg-slate-800">
+            <nav class="flex flex-col">
+                <a href="#services" class="text-slate-300 py-4 text-center border-b border-slate-700">Serviços</a>
+                <a href="#about" class="text-slate-300 py-4 text-center border-b border-slate-700">Sobre Nós</a>
+                <a href="#clients" class="text-slate-300 py-4 text-center">Clientes</a>
+                 <div class="p-4"><a href="#contact" class="block text-center w-full btn-gold font-bold py-3 px-6 rounded-full">Fale Conosco</a></div>
+            </nav>
         </div>
     </header>
 
     <main>
-        <section id="hero-section">
-            <canvas id="plexus-canvas"></canvas>
-            <div class="hero-content">
-                <h1 class="hero-title">Segurança Inteligente para Cada Setor</h1>
-                <p class="hero-subtitle">Análises de risco e soluções tecnológicas desenhadas para o seu ambiente.</p>
-                <div class="panels-container">
-                    <div class="hero-panel">
-                        <div class="panel-icon"><i data-lucide="sun"></i></div>
-                        <h3 class="panel-title">Usinas Solares</h3>
-                        <p class="panel-description">Proteção de ponta a ponta para ativos de geração de energia, cobrindo perímetros extensos e equipamentos de alto valor.</p>
-                        <button class="panel-cta" data-sector="solar">Conhecer Soluções</button>
-                    </div>
-                    <div class="hero-panel">
-                        <div class="panel-icon"><i data-lucide="factory"></i></div>
-                        <h3 class="panel-title">Indústria</h3>
-                        <p class="panel-description">Controle de acesso robusto, prevenção de perdas e vigilância patrimonial para complexos industriais e logísticos.</p>
-                        <button class="panel-cta" data-sector="industrial">Conhecer Soluções</button>
-                    </div>
-                    <div class="hero-panel">
-                        <div class="panel-icon"><i data-lucide="building-2"></i></div>
-                        <h3 class="panel-title">Corporativo</h3>
-                        <p class="panel-description">Segurança integrada para edifícios comerciais, com foco em controle de fluxo, segurança da informação e bem-estar.</p>
-                        <button class="panel-cta" data-sector="corporate">Conhecer Soluções</button>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <section class="text-divider-section">
-            <div class="container">
-                <div class="divider-content">
-                    <i data-lucide="shield-check"></i>
-                    <p>A verdadeira segurança não é um produto, é um <strong>processo de inteligência contínua</strong>. Analisamos as vulnerabilidades únicas do seu setor para construir uma fortaleza impenetrável, camada por camada.</p>
+        <!-- Hero Section -->
+        <section class="relative pt-40 pb-24 lg:pt-56 lg:pb-32 bg-cover bg-center" style="background-image: url('https://sunshield.com.br/wp-content/uploads/2025/06/sun-shield-35.jpg');">
+            <div class="absolute inset-0 bg-slate-900/60"></div>
+            <div class="relative container mx-auto px-6 text-center">
+                <div class="max-w-4xl mx-auto">
+                    <h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold text-white leading-tight text-balance">
+                        Segurança de Elite, Tecnologia de Ponta.
+                    </h1>
+                    <p class="text-lg md:text-xl text-slate-300 max-w-2xl mx-auto mt-6 mb-10 text-balance">
+                        Protegemos seu patrimônio com a máxima eficiência, integrando inteligência, equipes especializadas e tecnologia avançada.
+                    </p>
+                    <a href="#services" class="btn-gold font-bold py-4 px-10 rounded-full text-lg shadow-lg">
+                        Conheça Nossas Soluções
+                    </a>
                 </div>
             </div>
         </section>
 
-        <section id="solution-section" class="solution-section">
-            <div class="container">
-                <h2 class="section-title text-center">Nossas Camadas de Proteção</h2>
-                <div class="solutions-grid">
-                    <div class="solution-card">
-                        <img src="https://sunshield.com.br/wp-content/uploads/2025/06/sun-shield-18-1024x681.webp" alt="Vigilância Patrimonial" class="solution-image">
-                        <div class="solution-content"><div id="solution-1-icon" class="solution-icon"></div><h3 id="solution-1-title" class="solution-title"></h3><p id="solution-1-description"></p></div>
-                    </div>
-                    <div class="solution-card">
-                        <img src="https://sunshield.com.br/wp-content/uploads/2024/12/monitoramento-1024x681.webp" alt="Monitoramento Remoto" class="solution-image">
-                        <div class="solution-content"><div id="solution-2-icon" class="solution-icon"></div><h3 id="solution-2-title" class="solution-title"></h3><p id="solution-2-description"></p></div>
-                    </div>
-                    <div class="solution-card">
-                        <img src="https://backend.intelbras.com/sites/default/files/styles/large/public/2019-02/intelbras_comcondominial_sub-portaria_590x360_B.jpg" alt="Controle de Acesso" class="solution-image">
-                        <div class="solution-content"><div id="solution-3-icon" class="solution-icon"></div><h3 id="solution-3-title" class="solution-title"></h3><p id="solution-3-description"></p></div>
-                    </div>
+        <!-- Services Section -->
+        <section id="services" class="py-24">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16 fade-in-up">
+                    <h2 class="text-4xl font-bold text-white mb-3">Nossas Especialidades</h2>
+                    <p class="text-lg text-slate-400 max-w-3xl mx-auto text-balance">Soluções de segurança projetadas para a máxima proteção e eficiência.</p>
                 </div>
-            </div>
-        </section>
-        
-        <section id="tech-section" class="tech-section">
-            <div class="container">
-                <div class="tech-content">
-                    <div class="tech-text">
-                        <h2 class="section-title">Tecnologia que Nunca Dorme</h2>
-                        <p class="section-subtitle">Nossa vigilância eletrônica utiliza sistemas inteligentes que monitoram seu patrimônio 24 horas por dia, 7 dias por semana. Cada movimento é analisado, garantindo uma resposta proativa e uma tranquilidade que só a tecnologia de ponta pode oferecer.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- Service Card -->
+                    <div class="bg-slate-800 rounded-2xl overflow-hidden group fade-in-up">
+                        <div class="relative h-64">
+                             <img src="https://sunshield.com.br/wp-content/uploads/2025/06/sun-shield-37-1536x1022.jpg" alt="Segurança Patrimonial" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                        </div>
+                        <div class="p-8">
+                            <h3 class="text-2xl font-bold text-white mb-3">Segurança Patrimonial</h3>
+                            <p class="text-slate-400">Proteção robusta para instalações industriais, comerciais e rurais com equipes de vigilância e planos de segurança personalizados.</p>
+                        </div>
                     </div>
-                    <div class="camera-container">
-                        <svg id="security-camera" viewBox="0 0 200 200">
-                            <g id="camera-body">
-                                <path d="M 50,150 Q 50,80 100,80 T 150,150 Z" fill="#1E293B" stroke="#94A3B8" stroke-width="2"/>
-                                <rect x="70" y="148" width="60" height="10" fill="#1E293B" stroke="#94A3B8" stroke-width="2"/>
-                            </g>
-                            <g id="camera-lens">
-                                <circle cx="100" cy="115" r="30" fill="#0F172A"/>
-                                <circle cx="100" cy="115" r="15" fill="#3b82f6"/>
-                                <circle id="camera-pupil" cx="100" cy="115" r="5" fill="#E2E8F0"/>
-                            </g>
-                        </svg>
+                     <!-- Service Card -->
+                    <div class="bg-slate-800 rounded-2xl overflow-hidden group fade-in-up" style="transition-delay: 0.1s;">
+                        <div class="relative h-64">
+                           <img src="https://sunshield.com.br/wp-content/uploads/2025/06/sun-shield-18-1536x1022.jpg" alt="Monitoramento 24h" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                        </div>
+                        <div class="p-8">
+                            <h3 class="text-2xl font-bold text-white mb-3">Monitoramento 24h</h3>
+                            <p class="text-slate-400">Vigilância remota contínua com tecnologia de ponta, garantindo resposta rápida e eficaz a qualquer atividade suspeita.</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="comparison-section" class="comparison-section">
-            <div class="container">
-                <h2 class="section-title text-center">A Diferença Sun Shield</h2>
-                <div class="comparison-grid">
-                    <div class="comparison-column">
-                        <h3>Segurança Convencional</h3>
-                        <ul>
-                            <li><i data-lucide="x-circle"></i>Monitoramento Passivo</li>
-                            <li><i data-lucide="x-circle"></i>Rondas por Roteiro Fixo</li>
-                            <li><i data-lucide="x-circle"></i>Resposta Reativa a Incidentes</li>
-                            <li><i data-lucide="x-circle"></i>Relatórios Manuais e Esporádicos</li>
-                            <li><i data-lucide="x-circle"></i>Pontos Cegos na Cobertura</li>
-                        </ul>
+        <!-- About Us Section -->
+        <section id="about" class="py-24 bg-slate-800">
+             <div class="container mx-auto px-6">
+                <div class="flex flex-col lg:flex-row-reverse items-center gap-12 lg:gap-20">
+                    <div class="lg:w-1/2 fade-in-up">
+                        <img src="https://sunshield.com.br/wp-content/uploads/2025/06/sun-shield-41-1536x1022.jpg"
+                             alt="Equipe Sun Shield" class="rounded-2xl shadow-2xl w-full h-auto">
                     </div>
-                    <div class="comparison-column sunshield-column">
-                        <h3>Sun Shield Intelligence</h3>
-                        <ul>
-                            <li><i data-lucide="check-circle-2"></i>Monitoramento Proativo com I.A.</li>
-                            <li><i data-lucide="check-circle-2"></i>Rondas Guiadas por Dados</li>
-                            <li><i data-lucide="check-circle-2"></i>Prevenção e Resposta Rápida</li>
-                            <li><i data-lucide="check-circle-2"></i>Dashboards e Relatórios em Tempo Real</li>
-                            <li><i data-lucide="check-circle-2"></i>Cobertura Total e Integrada</li>
-                        </ul>
+                    <div class="lg:w-1/2 fade-in-up">
+                        <span class="font-bold text-amber-400 uppercase">Nosso Compromisso</span>
+                        <h2 class="text-4xl font-bold text-white mb-6 mt-2 text-balance">Confiança Forjada em Experiência</h2>
+                        <p class="text-slate-300 mb-6 text-lg">
+                           Na Sun Shield, a excelência é o nosso padrão. Combinamos o rigor de equipes altamente treinadas com a precisão da tecnologia para oferecer um nível de segurança incomparável. Nossa missão é garantir a sua tranquilidade.
+                        </p>
+                        <div class="space-y-6 border-l-4 border-amber-400 pl-6">
+                             <div>
+                                <h4 class="text-xl font-semibold text-white">Profissionais de Elite</h4>
+                                <p class="text-slate-400 mt-1">Nossa equipe é certificada e passa por treinamentos contínuos para estar sempre preparada.</p>
+                            </div>
+                             <div>
+                                <h4 class="text-xl font-semibold text-white">Tecnologia Integrada</h4>
+                                <p class="text-slate-400 mt-1">Utilizamos os sistemas mais avançados de monitoramento e controle para uma proteção 360°.</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="proof-section" class="proof-section">
-             <div class="container text-center">
-                <h2 class="section-title">A confiança de gigantes do setor.</h2>
-                <div class="logo-scroller">
-                    <div class="logo-track">
+        <!-- Clients Section -->
+        <section id="clients" class="py-20">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-8 fade-in-up">
+                    <h2 class="text-3xl font-bold text-white">Parceiros que Confiam em Nosso Trabalho</h2>
+                </div>
+                <div class="logos">
+                    <div class="logos-slide">
                         <img src="https://sunshield.com.br/wp-content/uploads/2024/12/2024-CS_Website_Logo-Brazil-04-1024x236.webp" alt="Logo Canadian Solar">
                         <img src="https://sunshield.com.br/wp-content/uploads/2024/12/LOGO_RAIZEN_RGB-1024x515.webp" alt="Logo Raízen">
+                        <img src="https://sunshield.com.br/wp-content/uploads/2024/12/Ivi-Logo-Ajustado.webp" alt="Logo Ivi">
                         <img src="https://sunshield.com.br/wp-content/uploads/2024/12/Recurrent-Energy-logo-768x287-1.webp" alt="Logo Recurrent Energy">
-                        <img src="https://modern.energy/application/files/9517/0195/8760/faro-energy.png" alt="Logo Faro Energy">
-                        <img src="https://www.wesco.com/content/dam/wesco/assets/logos/brands/AXIS-logo_300x175.png" alt="Logo Axis Communications">
-                        <img src="https://www.ivi.energy/web/image/website/1/logo?unique=0feb2f1" alt="Logo Ivi Energia">
-                        <img src="https://sunshield.com.br/wp-content/uploads/2024/12/74f8f1e5-bd35-47ca-9297-8662ffeb3267.webp" alt="Logo SolarGrid">
-                        <img src="https://sunshield.com.br/wp-content/uploads/2024/12/gg-home-banner.webp" alt="Logo Grupo Gera">
-                        <img src="https://axisrenovaveis.com.br/wp-content/uploads/2023/04/axis_logo_header.png" alt="Logo Axis Renováveis">
-                        <img src="https://sunshield.com.br/wp-content/uploads/2024/12/1-1c77738a.webp" alt="Logo MV Power">
-                        <img src="https://sunshield.com.br/wp-content/uploads/2024/12/sparta-removebg-preview.webp" alt="Logo Sparta Energy">
-                        <img src="https://sunshield.com.br/wp-content/uploads/2024/12/LOG_SINDICATO_RURAL-removebg-preview.webp" alt="Logo Sindicato Rural de Morro Agudo">
-                        <img src="https://sunshield.com.br/wp-content/uploads/2025/03/Paraty-1.png" alt="Logo Paraty Energia">
-                        <img src="https://sunshield.com.br/wp-content/uploads/2025/03/sv_logo_retangular-1.png" alt="Logo SolarVolt">
-                        
+                        <img src="https://sunshield.com.br/wp-content/uploads/2025/03/LOGO-FARO-ENERGY-2.png" alt="Logo Faro Energy">
+                        <img src="https://sunshield.com.br/wp-content/uploads/2024/12/axis_logo_header.png" alt="Logo Axis">
+                        <img src="https://sunshield.com.br/wp-content/uploads/2025/03/sv_logo_retangular-2.png" alt="Logo SV">
+                    </div>
+                     <div class="logos-slide">
                         <img src="https://sunshield.com.br/wp-content/uploads/2024/12/2024-CS_Website_Logo-Brazil-04-1024x236.webp" alt="Logo Canadian Solar">
                         <img src="https://sunshield.com.br/wp-content/uploads/2024/12/LOGO_RAIZEN_RGB-1024x515.webp" alt="Logo Raízen">
+                        <img src="https://sunshield.com.br/wp-content/uploads/2024/12/Ivi-Logo-Ajustado.webp" alt="Logo Ivi">
                         <img src="https://sunshield.com.br/wp-content/uploads/2024/12/Recurrent-Energy-logo-768x287-1.webp" alt="Logo Recurrent Energy">
-                        <img src="https://modern.energy/application/files/9517/0195/8760/faro-energy.png" alt="Logo Faro Energy">
-                        <img src="https://www.wesco.com/content/dam/wesco/assets/logos/brands/AXIS-logo_300x175.png" alt="Logo Axis Communications">
-                        <img src="https://www.ivi.energy/web/image/website/1/logo?unique=0feb2f1" alt="Logo Ivi Energia">
-                        <img src="https://sunshield.com.br/wp-content/uploads/2024/12/74f8f1e5-bd35-47ca-9297-8662ffeb3267.webp" alt="Logo SolarGrid">
-                        <img src="https://sunshield.com.br/wp-content/uploads/2024/12/gg-home-banner.webp" alt="Logo Grupo Gera">
-                        <img src="https://axisrenovaveis.com.br/wp-content/uploads/2023/04/axis_logo_header.png" alt="Logo Axis Renováveis">
-                        <img src="https://sunshield.com.br/wp-content/uploads/2024/12/1-1c77738a.webp" alt="Logo MV Power">
-                        <img src="https://sunshield.com.br/wp-content/uploads/2024/12/sparta-removebg-preview.webp" alt="Logo Sparta Energy">
-                        <img src="https://sunshield.com.br/wp-content/uploads/2024/12/LOG_SINDICATO_RURAL-removebg-preview.webp" alt="Logo Sindicato Rural de Morro Agudo">
-                        <img src="https://sunshield.com.br/wp-content/uploads/2025/03/Paraty-1.png" alt="Logo Paraty Energia">
-                        <img src="https://sunshield.com.br/wp-content/uploads/2025/03/sv_logo_retangular-1.png" alt="Logo SolarVolt">
+                        <img src="https://sunshield.com.br/wp-content/uploads/2025/03/LOGO-FARO-ENERGY-2.png" alt="Logo Faro Energy">
+                        <img src="https://sunshield.com.br/wp-content/uploads/2024/12/axis_logo_header.png" alt="Logo Axis">
+                        <img src="https://sunshield.com.br/wp-content/uploads/2025/03/sv_logo_retangular-2.png" alt="Logo SV">
+                    </div>
+                    <div class="logos-slide">
+                        <img src="https://sunshield.com.br/wp-content/uploads/2024/12/2024-CS_Website_Logo-Brazil-04-1024x236.webp" alt="Logo Canadian Solar">
+                        <img src="https://sunshield.com.br/wp-content/uploads/2024/12/LOGO_RAIZEN_RGB-1024x515.webp" alt="Logo Raízen">
+                        <img src="https://sunshield.com.br/wp-content/uploads/2024/12/Ivi-Logo-Ajustado.webp" alt="Logo Ivi">
+                        <img src="https://sunshield.com.br/wp-content/uploads/2024/12/Recurrent-Energy-logo-768x287-1.webp" alt="Logo Recurrent Energy">
+                        <img src="https://sunshield.com.br/wp-content/uploads/2025/03/LOGO-FARO-ENERGY-2.png" alt="Logo Faro Energy">
+                        <img src="https://sunshield.com.br/wp-content/uploads/2024/12/axis_logo_header.png" alt="Logo Axis">
+                        <img src="https://sunshield.com.br/wp-content/uploads/2025/03/sv_logo_retangular-2.png" alt="Logo SV">
+                    </div>
+                     <div class="logos-slide">
+                        <img src="https://sunshield.com.br/wp-content/uploads/2024/12/2024-CS_Website_Logo-Brazil-04-1024x236.webp" alt="Logo Canadian Solar">
+                        <img src="https://sunshield.com.br/wp-content/uploads/2024/12/LOGO_RAIZEN_RGB-1024x515.webp" alt="Logo Raízen">
+                        <img src="https://sunshield.com.br/wp-content/uploads/2024/12/Ivi-Logo-Ajustado.webp" alt="Logo Ivi">
+                        <img src="https://sunshield.com.br/wp-content/uploads/2024/12/Recurrent-Energy-logo-768x287-1.webp" alt="Logo Recurrent Energy">
+                        <img src="https://sunshield.com.br/wp-content/uploads/2025/03/LOGO-FARO-ENERGY-2.png" alt="Logo Faro Energy">
+                        <img src="https://sunshield.com.br/wp-content/uploads/2024/12/axis_logo_header.png" alt="Logo Axis">
+                        <img src="https://sunshield.com.br/wp-content/uploads/2025/03/sv_logo_retangular-2.png" alt="Logo SV">
+                    </div>
+                    <div class="logos-slide">
+                        <img src="https://sunshield.com.br/wp-content/uploads/2024/12/2024-CS_Website_Logo-Brazil-04-1024x236.webp" alt="Logo Canadian Solar">
+                        <img src="https://sunshield.com.br/wp-content/uploads/2024/12/LOGO_RAIZEN_RGB-1024x515.webp" alt="Logo Raízen">
+                        <img src="https://sunshield.com.br/wp-content/uploads/2024/12/Ivi-Logo-Ajustado.webp" alt="Logo Ivi">
+                        <img src="https://sunshield.com.br/wp-content/uploads/2024/12/Recurrent-Energy-logo-768x287-1.webp" alt="Logo Recurrent Energy">
+                        <img src="https://sunshield.com.br/wp-content/uploads/2025/03/LOGO-FARO-ENERGY-2.png" alt="Logo Faro Energy">
+                        <img src="https://sunshield.com.br/wp-content/uploads/2024/12/axis_logo_header.png" alt="Logo Axis">
+                        <img src="https://sunshield.com.br/wp-content/uploads/2025/03/sv_logo_retangular-2.png" alt="Logo SV">
+                    </div>
+                     <div class="logos-slide">
+                        <img src="https://sunshield.com.br/wp-content/uploads/2024/12/2024-CS_Website_Logo-Brazil-04-1024x236.webp" alt="Logo Canadian Solar">
+                        <img src="https://sunshield.com.br/wp-content/uploads/2024/12/LOGO_RAIZEN_RGB-1024x515.webp" alt="Logo Raízen">
+                        <img src="https://sunshield.com.br/wp-content/uploads/2024/12/Ivi-Logo-Ajustado.webp" alt="Logo Ivi">
+                        <img src="https://sunshield.com.br/wp-content/uploads/2024/12/Recurrent-Energy-logo-768x287-1.webp" alt="Logo Recurrent Energy">
+                        <img src="https://sunshield.com.br/wp-content/uploads/2025/03/LOGO-FARO-ENERGY-2.png" alt="Logo Faro Energy">
+                        <img src="https://sunshield.com.br/wp-content/uploads/2024/12/axis_logo_header.png" alt="Logo Axis">
+                        <img src="https://sunshield.com.br/wp-content/uploads/2025/03/sv_logo_retangular-2.png" alt="Logo SV">
                     </div>
                 </div>
-                <blockquote class="testimonial">
-                    <p>"Desde a implementação da solução Sun Shield, o número de tentativas de invasão em nosso principal ativo foi reduzido a zero. A tranquilidade que isso nos trouxe é imensurável."</p>
-                    <footer>— Diretor de Operações, Setor de Energia Renovável</footer>
-                </blockquote>
             </div>
         </section>
         
-        <section id="cta-section" class="cta-section">
-            <div class="container text-center">
-                <h2 class="section-title">Eleve o seu padrão de segurança.</h2>
-                <p class="section-subtitle">Não se contente com o convencional. Fale com um especialista e descubra a nossa abordagem.</p>
-                <a href="#" class="cta-button">Agende uma Demonstração Remota</a>
+        <!-- Contact Section -->
+        <section id="contact" class="py-24 bg-slate-800">
+            <div class="container mx-auto px-6">
+                <div class="text-center fade-in-up">
+                     <h2 class="text-4xl font-bold text-white">Fale com um Especialista</h2>
+                    <p class="text-lg text-slate-400 mt-2 max-w-2xl mx-auto text-balance">Estamos prontos para entender sua necessidade e desenhar uma solução de segurança sob medida.</p>
+                </div>
+                <div class="max-w-3xl mx-auto mt-12 bg-slate-900 p-8 lg:p-12 rounded-2xl shadow-2xl fade-in-up">
+                    <form action="#" method="POST">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label for="name" class="font-medium text-slate-300">Nome</label>
+                                <input type="text" id="name" name="name" placeholder="Seu nome" class="mt-2 w-full bg-slate-700 border-slate-600 rounded-lg py-3 px-4 focus:outline-none focus:ring-2 focus:ring-amber-400 transition-all text-white" required>
+                            </div>
+                            <div>
+                                <label for="email" class="font-medium text-slate-300">Email</label>
+                                <input type="email" id="email" name="email" placeholder="exemplo@exemplo.com" class="mt-2 w-full bg-slate-700 border-slate-600 rounded-lg py-3 px-4 focus:outline-none focus:ring-2 focus:ring-amber-400 transition-all text-white" required>
+                            </div>
+                            <div class="md:col-span-2">
+                                <label for="message" class="font-medium text-slate-300">Mensagem</label>
+                                <textarea id="message" name="message" rows="5" placeholder="Descreva sua necessidade..." class="mt-2 w-full bg-slate-700 border-slate-600 rounded-lg py-3 px-4 focus:outline-none focus:ring-2 focus:ring-amber-400 transition-all text-white" required></textarea>
+                            </div>
+                            <div class="md:col-span-2">
+                                <button type="submit" class="w-full btn-gold font-bold py-4 px-10 rounded-lg shadow-lg">
+                                    Enviar Solicitação
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
         </section>
     </main>
 
-    <footer class="site-footer-bottom">
-        <p>&copy; <span id="year"></span> Sun Shield Intelligence. Uma iniciativa para demonstrar o futuro da segurança.</p>
-        <p class="dev-credit">Desenvolvido por <a href="https://www.linkedin.com/in/jordan-luiz-3ab157363" target="_blank"><strong>Jordanlvs</strong> <i class="fa-solid fa-circle-check verified-badge"></i></a></p>
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400">
+        <div class="container mx-auto px-6 py-8 text-center">
+             <a href="#" class="inline-block mb-6">
+                <img src="https://sunshield.com.br/wp-content/uploads/2024/12/cropped-sunshield-1-150x150.webp" alt="Sun Shield Logo" class="h-12 w-auto">
+            </a>
+            <nav class="flex justify-center flex-wrap gap-x-6 gap-y-2 mb-6">
+                <a href="#about" class="hover:text-amber-400 transition-colors">Sobre</a>
+                <a href="#services" class="hover:text-amber-400 transition-colors">Serviços</a>
+                <a href="#clients" class="hover:text-amber-400 transition-colors">Clientes</a>
+                <a href="#contact" class="hover:text-amber-400 transition-colors">Contato</a>
+            </nav>
+             <div class="flex justify-center space-x-6 mb-8">
+                <a href="https://br.linkedin.com/company/sunshieldseg" aria-label="LinkedIn" class="hover:text-white transition-colors"><i data-lucide="linkedin" class="h-6 w-6"></i></a>
+                <a href="https://instagram.com/sunshield_seg" aria-label="Instagram" class="hover:text-white transition-colors"><i data-lucide="instagram" class="h-6 w-6"></i></a>
+             </div>
+             <p class="text-slate-500">Copyright &copy; <span id="year"></span>© Sun Shield. Todos os direitos reservados ®. - Feito por <a href="https://www.instagram.com/jordanlvs" target="_blank" class="dev-credit-link">@jordanlvs <i class="fa-solid fa-circle-check verified-badge"></i></a></p>
+        </div>
     </footer>
-    
-    <script src="script.js"></script>
+
+    <script>
+        lucide.createIcons();
+
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenuButton.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+        document.querySelectorAll('#mobile-menu a').forEach(link => link.addEventListener('click', () => mobileMenu.classList.add('hidden')));
+
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        const faders = document.querySelectorAll('.fade-in-up');
+        const appearOptions = { threshold: 0.1, rootMargin: "0px 0px -50px 0px" };
+        const appearOnScroll = new IntersectionObserver(function(entries, observer) {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) return;
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+            });
+        }, appearOptions);
+
+        faders.forEach(fader => appearOnScroll.observe(fader));
+    </script>
 </body>
 </html>
+
+<!-- Criado por @Jordanlvs - All Rights Reserved ®-->
