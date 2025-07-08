@@ -26,8 +26,13 @@ body {
 .text-center { text-align: center; }
 
 /* --- HEADER E FOOTER --- */
-.site-header { padding: 1.5rem 0; position: absolute; width: 100%; z-index: 100; }
-.logo { height: 50px; width: auto; }
+.site-header { padding: 2.5rem 0; position: absolute; width: 100%; z-index: 100; }
+.logo { height: 75px; width: auto; }
+
+.site-header .container {
+    display: flex;
+    justify-content: center;
+}
 
 /* --- SEÇÃO HERO --- */
 #hero-section {
