@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
         solar: [
             { image: 'https://sunshield.com.br/wp-content/uploads/2025/06/sun-shield-18-1024x681.webp', icon: 'shield-check', title: 'Vigilância Patrimonial', description: 'Equipes especializadas na proteção de grandes perímetros e ativos de alto valor, com rondas estratégicas e presença constante em UFV\'s.' },
             { image: 'https://sunshield.com.br/wp-content/uploads/2024/12/monitoramento-1024x681.webp', icon: 'video', title: 'Monitoramento Remoto', description: 'Supervisão contínua com câmeras de alta definição e sistemas inteligentes para detecção rápida de anomalias ou riscos em usinas.' },
-            { image: 'https://backend.intelbras.com/sites/default/files/styles/large/public/2019-02/intelbras_comcondominial_sub-portaria_590x360_B.jpg', icon: 'git-branch', title: 'Controle de Acesso', description: 'Gestão rigorosa da entrada e saída de veículos e técnicos para garantir a integridade da planta e prevenir acessos não autorizados.' }
+            { image: 'https://i.postimg.cc/HnKHPdhp/newone.jpg', icon: 'git-branch', title: 'Controle de Acesso', description: 'Gestão rigorosa da entrada e saída de veículos e técnicos para garantir a integridade da planta e prevenir acessos não autorizados.' }
         ],
         industrial: [
             { image: 'https://sunshield.com.br/wp-content/uploads/2025/06/sun-shield-41-1024x681.webp', icon: 'shield-check', title: 'Vigilância Especializada', description: 'Proteção robusta para parques industriais, atuando de forma preventiva para neutralizar riscos e garantir a integridade dos ativos.' },
