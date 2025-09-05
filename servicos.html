@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Serviços - Sun Shield</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" type="image/png" href="assets/images/logo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/map.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/geodata/brazilLow.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/themes/Dark.js"></script>
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        light: { background: '#F8FAFC', surface: '#FFFFFF', primary: '#0F172A', secondary: '#64748B', accent: '#2563EB', 'accent-hover': '#1D4ED8' },
+                        dark: { background: '#0d1117', surface: '#161b22', primary: '#E2E8F0', secondary: '#94A3B8', accent: '#38BDF8', 'accent-hover': '#0EA5E9' }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        :root {
+            --bg-background: #F8FAFC; --bg-surface: #FFFFFF;
+            --text-primary: #0F172A; --text-secondary: #64748B;
+            --color-accent: #2563EB; --color-accent-hover: #1D4ED8;
+        }
+        html.dark {
+            --bg-background: #0d1117; --bg-surface: #161b22;
+            --text-primary: #E2E8F0; --text-secondary: #94A3B8;
+            --color-accent: #38BDF8; --color-accent-hover: #0EA5E9;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-background);
+            color: var(--text-primary);
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .text-balance { text-wrap: balance; }
+        
+        #mapdiv { width: 100%; height: 100vh; }
+
+        .content-card {
+            background-color: var(--bg-surface);
+            border: 1px solid rgba(128, 128, 128, 0.1);
+            transition: all 0.3s ease;
+        }
+        .content-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        html.dark .content-card:hover {
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            border-color: var(--color-accent);
+        }
+
+        /* SCROLLBAR PERSONALIZADA */
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: var(--bg-surface); }
+        ::-webkit-scrollbar-thumb { background: var(--color-accent); border-radius: 10px; border: 2px solid var(--bg-surface); }
+        ::-webkit-scrollbar-thumb:hover { background: var(--color-accent-hover); }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header id="header" class="bg-light-surface/80 dark:bg-dark-surface/80 backdrop-blur-xl fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b border-slate-200 dark:border-white/10">
+        <div class="container mx-auto px-6">
+            <div class="flex items-center justify-between h-20">
+                <a href="index.html"><img src="assets/images/logo.png" alt="Sun Shield Logo" class="h-14 w-auto"></a>
+                <nav class="hidden lg:flex items-center gap-2">
+                    <a href="index.html" class="text-light-secondary dark:text-dark-secondary hover:text-light-accent dark:hover:text-dark-accent font-medium transition-colors px-4 py-2 rounded-md">Home</a>
+                    <a href="servicos.html" class="text-light-accent dark:text-dark-accent font-semibold bg-slate-200 dark:bg-dark-surface px-4 py-2 rounded-md">Serviços</a>
+                    <a href="clientes.html" class="text-light-secondary dark:text-dark-secondary hover:text-light-accent dark:hover:text-dark-accent font-medium transition-colors px-4 py-2 rounded-md">Clientes</a>
+                    <a href="sobre.html" class="text-light-secondary dark:text-dark-secondary hover:text-light-accent dark:hover:text-dark-accent font-medium transition-colors px-4 py-2 rounded-md">Sobre Nós</a>
+                </nav>
+                <div class="flex items-center gap-4">
+                    <button id="theme-toggle" class="h-10 w-10 flex items-center justify-center rounded-full bg-slate-200 dark:bg-dark-surface text-light-primary dark:text-dark-primary">
+                        <i data-lucide="sun" class="hidden dark:block"></i>
+                        <i data-lucide="moon" class="block dark:hidden"></i>
+                    </button>
+                    <a href="contato.html" class="hidden lg:inline-block bg-light-accent hover:bg-light-accent-hover dark:bg-dark-accent dark:hover:bg-dark-accent-hover text-white font-bold py-2.5 px-6 rounded-full transition-all duration-300">Fale Conosco</a>
+                    <button id="mobile-menu-button" class="lg:hidden text-light-primary dark:text-dark-primary"><i data-lucide="menu" class="h-7 w-7"></i></button>
+                </div>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden lg:hidden bg-light-surface/95 dark:bg-dark-surface/95 backdrop-blur-sm">
+             <nav class="flex flex-col">
+                <a href="index.html" class="text-light-primary dark:text-dark-primary py-4 text-center border-b border-slate-200 dark:border-white/10">Home</a>
+                <a href="servicos.html" class="text-light-primary dark:text-dark-primary py-4 text-center border-b border-slate-200 dark:border-white/10">Serviços</a>
+                <a href="clientes.html" class="text-light-primary dark:text-dark-primary py-4 text-center border-b border-slate-200 dark:border-white/10">Clientes</a>
+                <a href="sobre.html" class="text-light-primary dark:text-dark-primary py-4 text-center">Sobre Nós</a>
+                 <div class="p-4">
+                     <a href="contato.html" class="block text-center w-full bg-light-accent dark:bg-dark-accent text-white font-bold py-3 px-6 rounded-full">Fale Conosco</a>
+                 </div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section id="map" class="relative">
+            <div id="mapdiv"></div>
+            <div class="absolute bottom-0 left-0 right-0 pb-16 text-center z-10 pointer-events-none">
+                <div class="container mx-auto px-6">
+                    <h2 class="text-4xl lg:text-5xl font-bold mb-3 text-balance text-white dark:text-white" style="text-shadow: 1px 1px 3px rgba(0,0,0,0.5);">Nossa Presença em Todo o Brasil</h2>
+                    <p class="text-lg text-slate-200 dark:text-slate-300 max-w-3xl mx-auto text-balance" style="text-shadow: 1px 1px 3px rgba(0,0,0,0.5);">Com operações estratégicas nos principais estados, garantimos segurança e monitoramento onde seu patrimônio estiver.</p>
+                </div>
+            </div>
+            <button id="map-interaction-toggle" class="absolute top-24 right-6 bg-light-surface/80 dark:bg-dark-surface/80 backdrop-blur-md p-3 rounded-full z-20 shadow-lg flex items-center gap-2 text-sm font-semibold">
+                <i data-lucide="mouse-pointer-click" class="h-5 w-5 text-light-primary dark:text-dark-primary"></i>
+                <span id="map-interaction-text">Ativar Interação</span>
+            </button>
+            <div class="absolute inset-0 bg-gradient-to-t from-[var(--bg-background)] to-transparent pointer-events-none"></div>
+        </section>
+
+        <section id="stats" class="py-16 bg-light-surface dark:bg-dark-surface border-y border-slate-200 dark:border-white/10">
+            <div class="container mx-auto px-6">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                    <div class="p-4">
+                        <p class="text-5xl font-extrabold text-light-accent dark:text-dark-accent"><span data-target="60">0</span>+</p>
+                        <h3 class="text-xl font-semibold mt-2">UFV's Protegidas</h3>
+                    </div>
+                    <div class="p-4">
+                        <p class="text-5xl font-extrabold text-light-accent dark:text-dark-accent"><span data-target="1000">0</span>+</p>
+                        <h3 class="text-xl font-semibold mt-2">Câmeras Instaladas</h3>
+                    </div>
+                    <div class="p-4">
+                        <p class="text-5xl font-extrabold text-light-accent dark:text-dark-accent"><span data-target="120">0</span>+</p>
+                        <h3 class="text-xl font-semibold mt-2">Ativos Monitorados</h3>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-24">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl lg:text-5xl font-bold mb-3 text-balance">Nossos Pilares</h2>
+                    <p class="text-lg text-light-secondary dark:text-dark-secondary max-w-3xl mx-auto text-balance">A base do nosso trabalho, presente em cada operação.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="content-card rounded-2xl p-8">
+                        <div class="flex items-center gap-4 mb-4">
+                            <i data-lucide="shield-check" class="h-10 w-10 text-light-accent dark:text-dark-accent flex-shrink-0"></i>
+                            <h3 class="text-2xl font-bold">Confiança</h3>
+                        </div>
+                        <p class="text-light-secondary dark:text-dark-secondary">A Sun Shield oferece soluções de monitoramento seguras e eficientes, focadas nas necessidades dos clientes, com tecnologia avançada e equipe dedicada, garantindo proteção, desempenho e confiança em cada etapa.</p>
+                    </div>
+                    <div class="content-card rounded-2xl p-8">
+                        <div class="flex items-center gap-4 mb-4">
+                            <i data-lucide="heart-handshake" class="h-10 w-10 text-light-accent dark:text-dark-accent flex-shrink-0"></i>
+                            <h3 class="text-2xl font-bold">Comprometimento</h3>
+                        </div>
+                        <p class="text-light-secondary dark:text-dark-secondary">Atuamos com total comprometimento na proteção de pessoas e patrimônios. Com serviços personalizados, equipe qualificada e tecnologia avançada, garantimos segurança e tranquilidade aos nossos clientes. Nossa prioridade é superar expectativas com profissionalismo e dedicação.</p>
+                    </div>
+                    <div class="content-card rounded-2xl p-8">
+                        <div class="flex items-center gap-4 mb-4">
+                            <i data-lucide="gem" class="h-10 w-10 text-light-accent dark:text-dark-accent flex-shrink-0"></i>
+                            <h3 class="text-2xl font-bold">Competência</h3>
+                        </div>
+                        <p class="text-light-secondary dark:text-dark-secondary">Somos especialista em segurança, unindo tecnologia avançada e equipe qualificada para proteger pessoas e patrimônios. Oferecemos serviços de excelência em segurança privada, patrimonial, monitoramento remoto e controle de acesso, garantindo confiança e tranquilidade.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="details" class="py-24 bg-light-surface dark:bg-dark-surface">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl lg:text-5xl font-bold mb-3 text-balance">Nossos Serviços em Detalhe</h2>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 text-center">
+                    <div class="content-card rounded-2xl p-8">
+                        <div class="inline-flex items-center justify-center h-16 w-16 rounded-full bg-light-accent/10 dark:bg-dark-accent/10 mb-6"><i data-lucide="camera" class="h-8 w-8 text-light-accent dark:text-dark-accent"></i></div>
+                        <h3 class="text-2xl font-bold mb-3">Monitoramento Remoto</h3>
+                        <p class="text-light-secondary dark:text-dark-secondary">O monitoramento remoto realizado pela Sun Shield é uma solução avançada que permite a supervisão contínua e em tempo real de usinas fotovoltaicas, fazendas e outros ativos. Utilizando tecnologia de ponta, como câmeras de alta definição e sistemas de monitoramento inteligente, garantimos a detecção rápida de qualquer anomalia ou risco...</p>
+                    </div>
+                    <div class="content-card rounded-2xl p-8">
+                        <div class="inline-flex items-center justify-center h-16 w-16 rounded-full bg-light-accent/10 dark:bg-dark-accent/10 mb-6"><i data-lucide="shield-check" class="h-8 w-8 text-light-accent dark:text-dark-accent"></i></div>
+                        <h3 class="text-2xl font-bold mb-3">Controle de Acesso</h3>
+                        <p class="text-light-secondary dark:text-dark-secondary">Na Sun Shield, entendemos que o controle de acesso é essencial para garantir a segurança das propriedades e das pessoas que nelas circulam. Oferecemos soluções modernas e personalizadas, utilizando tecnologias avançadas e processos eficientes para monitorar e gerenciar o fluxo de entrada e saída em tempo real...</p>
+                    </div>
+                    <div class="content-card rounded-2xl p-8">
+                        <div class="inline-flex items-center justify-center h-16 w-16 rounded-full bg-light-accent/10 dark:bg-dark-accent/10 mb-6"><i data-lucide="user-round-check" class="h-8 w-8 text-light-accent dark:text-dark-accent"></i></div>
+                        <h3 class="text-2xl font-bold mb-3">Vigilância</h3>
+                        <p class="text-light-secondary dark:text-dark-secondary">Oferecemos serviços de vigilância especializados, garantindo a segurança contínua dos ativos de nossos clientes. Contamos com vigias e vigilantes altamente treinados, preparados para atuar de forma preventiva e ágil na proteção de propriedades residenciais, comerciais e industriais...</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-20">
+            <div class="container mx-auto px-6">
+                 <div class="bg-light-surface dark:bg-dark-surface rounded-2xl shadow-xl p-12 text-center border border-slate-200 dark:border-white/10">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-4 text-balance">Não espere o imprevisto acontecer.</h2>
+                    <p class="text-lg text-light-secondary dark:text-dark-secondary mb-8 max-w-2xl mx-auto">Garanta agora a proteção que você merece com a Sun Shield!</p>
+                    <a href="index.html#contact" class="bg-light-accent hover:bg-light-accent-hover dark:bg-dark-accent dark:hover:bg-dark-accent-hover text-white font-bold py-3 px-8 rounded-full text-lg transition-transform hover:scale-105">Cuide do que realmente importa</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="text-light-secondary dark:text-dark-secondary">
+        <div class="container mx-auto px-6 py-8 text-center border-t border-slate-200 dark:border-white/10">
+             <a href="index.html" class="inline-block mb-6"><img src="assets/images/logo.png" alt="Sun Shield Logo" class="h-12 w-auto"></a>
+            <p>Copyright &copy; <span id="year"></span> Sun Shield. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            lucide.createIcons();
+
+            // LÓGICA DO TEMA LIGHT/DARK... (continua igual)
+            const themeToggleBtn = document.getElementById('theme-toggle');
+            const htmlEl = document.documentElement;
+            const applyTheme = (theme) => {
+                htmlEl.className = theme;
+                localStorage.setItem('theme', theme);
+            };
+            themeToggleBtn.addEventListener('click', () => {
+                const currentTheme = htmlEl.classList.contains('dark') ? '' : 'dark';
+                applyTheme(currentTheme);
+            });
+            const savedTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : '');
+            applyTheme(savedTheme);
+            
+            // LÓGICA DO MENU MOBILE... (continua igual)
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenuButton.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+            document.querySelectorAll('#mobile-menu a').forEach(link => {
+                link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+            });
+            
+            document.getElementById('year').textContent = new Date().getFullYear();
+
+            // LÓGICA DO MAPA INTERATIVO... (continua igual)
+            am5.ready(function() {
+                var root = am5.Root.new("mapdiv");
+                const currentThemeIsDark = document.documentElement.classList.contains('dark');
+                root.setThemes([ am5themes_Animated.new(root), ...(currentThemeIsDark ? [am5themes_Dark.new(root)] : []) ]);
+                var chart = root.container.children.push(am5map.MapChart.new(root, {
+                    panX: "none", panY: "none",
+                    wheelable: false,
+                    projection: am5map.geoMercator(),
+                    homeGeoPoint: { latitude: -15, longitude: -54 }, homeZoomLevel: 1.5
+                }));
+                chart.set("zoomControl", am5map.ZoomControl.new(root, {}));
+                chart.chartContainer.set("background", am5.Rectangle.new(root, { fillOpacity: 0 }));
+                const interactionButton = document.getElementById('map-interaction-toggle');
+                const interactionText = document.getElementById('map-interaction-text');
+                let isInteractive = false;
+                interactionButton.addEventListener('click', () => {
+                    isInteractive = !isInteractive;
+                    chart.setAll({ panX: isInteractive ? "translateX" : "none", panY: isInteractive ? "translateY" : "none", wheelable: isInteractive });
+                    interactionText.innerText = isInteractive ? 'Interação Ativada' : 'Ativar Interação';
+                    interactionButton.classList.toggle('ring-2');
+                    interactionButton.classList.toggle('ring-light-accent');
+                    interactionButton.classList.toggle('dark:ring-dark-accent');
+                });
+                var polygonSeries = chart.series.push(am5map.MapPolygonSeries.new(root, { geoJSON: am5geodata_brazilLow, fill: currentThemeIsDark ? am5.color(0x04447b) : am5.color(0x003366), stroke: currentThemeIsDark ? am5.color(0x161b22) : am5.color(0xFFFFFF) }));
+                polygonSeries.mapPolygons.template.setAll({ tooltipText: "[bold]{name}[/]", toggleKey: "active", interactive: true, strokeWidth: 0.5 });
+                polygonSeries.mapPolygons.template.states.create("hover", { fill: am5.color(0x38BDF8) });
+                const activeStates = ["BR-SP", "BR-MG", "BR-RJ", "BR-ES", "BR-PR", "BR-RS", "BR-MS", "BR-GO", "BR-MT", "BR-BA", "BR-AL", "BR-PE", "BR-RN", "BR-CE", "BR-AP"];
+                polygonSeries.data.setAll(activeStates.map(id => ({ id: id })));
+                const allStates = am5geodata_brazilLow.features.map(feature => feature.id);
+                const inactiveStates = allStates.filter(id => !activeStates.includes(id));
+                inactiveStates.forEach(id => { polygonSeries.data.push({ id: id, fill: am5.color(0xd1d5db) }); });
+                var pointSeries = chart.series.push(am5map.MapPointSeries.new(root, {}));
+                pointSeries.bullets.push(function() { return am5.Bullet.new(root, { sprite: am5.Circle.new(root, { radius: 5, stroke: am5.color(0xffffff), strokeWidth: 2, fill: am5.color(0xef4444), tooltipText: "[bold]{title}[/]" }) }); });
+                var cities = [ { title: "Água Clara - MS", geometry: { type: "Point", coordinates: [-52.883106, -20.443026] } }, { title: "Amontada - CE", geometry: { type: "Point", coordinates: [-39.828993, -3.362757] } }, { title: "Araçoiaba da Serra/SP", geometry: { type: "Point", coordinates: [-47.603176, -23.513151] } }, { title: "Araçatuba - SP", geometry: { type: "Point", coordinates: [-50.461197, -21.217010] } }, { title: "Canarana - MT", geometry: { type: "Point", coordinates: [-52.276347, -13.541587] } }, { title: "Confresa - MT", geometry: { type: "Point", coordinates: [-51.243752, -10.303440] } }, { title: "Campo Grande - RN", geometry: { type: "Point", coordinates: [-37.321095, -5.873998] } }, { title: "Bebedouro - SP", geometry: { type: "Point", coordinates: [-48.494377, -20.939329] } }, { title: "Delmiro Gouveia - AL", geometry: { type: "Point", coordinates: [-38.005532, -9.381897] } }, { title: "Itapecerica da Serra - SP", geometry: { type: "Point", coordinates: [-46.856833, -23.725802] } }, { title: "São Domingos - GO", geometry: { type: "Point", coordinates: [-46.312019, -13.404481] } }, { title: "Porto Real - RJ", geometry: { type: "Point", coordinates: [-44.335717, -22.436175] } }, { title: "Divino - MG", geometry: { type: "Point", coordinates: [-42.146283, -20.610021] } }, { title: "Paraíba do Sul - RJ", geometry: { type: "Point", coordinates: [-43.285212, -22.154495] } }, { title: "Maxaranguape - RN", geometry: { type: "Point", coordinates: [-35.259519, -5.517945] } }, { title: "Capitão Enéas - MG", geometry: { type: "Point", coordinates: [-43.715908, -16.321307] } }, { title: "Paranatinga - MT", geometry: { type: "Point", coordinates: [-54.052930, -14.425286] } }, { title: "Santo Antônio do Aracanguá - SP", geometry: { type: "Point", coordinates: [-50.497705, -20.934260] } }, { title: "Sidrolândia - MS", geometry: { type: "Point", coordinates: [-54.961444, -20.935238] } }, { title: "Caarapó - MS", geometry: { type: "Point", coordinates: [-54.828342, -22.632402] } }, { title: "Barreiras - BA", geometry: { type: "Point", coordinates: [-44.999153, -12.148691] } }, { title: "Buriti Alegre - GO", geometry: { type: "Point", coordinates: [-49.042041, -18.132963] } }, { title: "Caetité - BA", geometry: { type: "Point", coordinates: [-42.484022, -14.057345] } }, { title: "Corumbaíba - GO", geometry: { type: "Point", coordinates: [-48.561828, -18.139766] } }, { title: "Bonópolis - GO", geometry: { type: "Point", coordinates: [-49.833312, -13.651035] } }, { title: "Marialva - PR", geometry: { type: "Point", coordinates: [-51.804901, -23.479453] } }, { title: "Cajobi - SP", geometry: { type: "Point", coordinates: [-48.814570, -20.876969] } }, { title: "Jaíba - MG", geometry: { type: "Point", coordinates: [-43.680053, -15.339917] } }, { title: "Paudalho - PE", geometry: { type: "Point", coordinates: [-35.173637, -7.893851] } }, { title: "Vila Propício - GO", geometry: { type: "Point", coordinates: [-48.886319, -15.455765] } }, { title: "Porangatu - GO", geometry: { type: "Point", coordinates: [-49.147357, -13.441319] } }, { title: "Poções - BA", geometry: { type: "Point", coordinates: [-40.364677, -14.521088] } }, { title: "Quatis - MG", geometry: { type: "Point", coordinates: [-44.263025, -22.409789] } }, { title: "Vassouras - RJ", geometry: { type: "Point", coordinates: [-43.665618, -22.404435] } }, { title: "Naque - MG", geometry: { type: "Point", coordinates: [-42.330800, -19.225586] } }, { title: "Salto de Pirapora - SP", geometry: { type: "Point", coordinates: [-47.584464, -23.650042] } }, { title: "Salinas - MG", geometry: { type: "Point", coordinates: [-42.295827, -16.167245] } }, { title: "Pradópolis - SP", geometry: { type: "Point", coordinates: [-48.069036, -21.360912] } }, { title: "Macapá - AP", geometry: { type: "Point", coordinates: [-51.128106, -0.006382] } }, { title: "Camapuã - MS", geometry: { type: "Point", coordinates: [-54.044474, -19.535165] } }, { title: "Itajubá - MG", geometry: { type: "Point", coordinates: [-45.463476, -22.431150] } }, { title: "Morro Agudo - SP", geometry: { type: "Point", coordinates: [-48.057090, -20.730967] } }, { title: "Tanabi - SP", geometry: { type: "Point", coordinates: [-49.662966, -20.624241] } }, { title: "Bom Jesus da Lapa - SP", geometry: { type: "Point", coordinates: [-43.407314, -13.263309] } }, { title: "Icém - SP", geometry: { type: "Point", coordinates: [-49.198785, -20.341479] } }, { title: "Canas - SP", geometry: { type: "Point", coordinates: [-45.053757, -22.704156] } }, { title: "Barra Mansa - RJ", geometry: { type: "Point", coordinates: [-44.182734, -22.548301] } }, { title: "Rio das Flores - RJ", geometry: { type: "Point", coordinates: [-43.586640, -22.166823] } }, { title: "Ibiá - SP", geometry: { type: "Point", coordinates: [-46.546763, -19.488200] } }, { title: "Itaqui - RS", geometry: { type: "Point", coordinates: [-56.555150, -29.136072] } }, { title: "Boa Esperança - ES", geometry: { type: "Point", coordinates: [-40.291743, -18.540831] } }, { title: "Guará - SP", geometry: { type: "Point", coordinates: [-47.832644, -20.428906] } }, { title: "Aparecida do Taboado - MS", geometry: { type: "Point", coordinates: [-51.099887, -20.074331] } }, { title: "Girau do Ponciano - AL", geometry: { type: "Point", coordinates: [-36.829128, -9.882967] } }, { title: "Tambaú - SP", geometry: { type: "Point", coordinates: [-47.341938, -21.628332] } }, { title: "Batayporã - MS", geometry: { type: "Point", coordinates: [-53.270325, -22.297628] } }, { title: "Uruguaiana - RS", geometry: { type: "Point", coordinates: [-57.085544, -29.765470] } }, { title: "Barra - BA", geometry: { type: "Point", coordinates: [-43.1419, -11.0890] } }, { title: "Barreira - CE", geometry: { type: "Point", coordinates: [-38.6416, -4.2863] } }, { title: "São Mateus - ES", geometry: { type: "Point", coordinates: [-39.8589, -18.7158] } }, { title: "Aparecida do Rio Doce - GO", geometry: { type: "Point", coordinates: [-51.1383, -18.2947] } }, { title: "Bela Vista de Goiás - GO", geometry: { type: "Point", coordinates: [-48.9517, -16.9717] } }, { title: "Tangará da Serra - MT", geometry: { type: "Point", coordinates: [-57.4858, -14.6191] } }, { title: "Araxá - MG", geometry: { type: "Point", coordinates: [-46.9408, -19.5927] } }, { title: "Conceição das Alagoas - MG", geometry: { type: "Point", coordinates: [-48.3888, -19.9138] } }, { title: "Lagoa Grande - MG", geometry: { type: "Point", coordinates: [-46.5138, -17.8350] } }, { title: "Pedralva - MG", geometry: { type: "Point", coordinates: [-45.4658, -22.2427] } }, { title: "Canas - RJ", geometry: { type: "Point", coordinates: [-45.0533, -22.6994] } }, { title: "Itaguaí - RJ", geometry: { type: "Point", coordinates: [-43.7750, -22.8519] } }, { title: "Sapucaia - RJ", geometry: { type: "Point", coordinates: [-42.9138, -21.9950] } }, { title: "São Francisco de Itabapoana - RJ", geometry: { type: "Point", coordinates: [-41.1127, -21.4727] } }, { title: "São João da Barra - RJ", geometry: { type: "Point", coordinates: [-41.0508, -21.6400] } }, { title: "Werneck - RJ", geometry: { type: "Point", coordinates: [-43.2844, -22.1641] } }, { title: "Dom Marcolino - RN", geometry: { type: "Point", coordinates: [-35.2619, -5.5158] } }, { title: "Quaraí - RS", geometry: { type: "Point", coordinates: [-56.4513, -30.3875] } }, { title: "Colina - SP", geometry: { type: "Point", coordinates: [-48.5438, -20.7180] } }, { title: "Glicério - SP", geometry: { type: "Point", coordinates: [-50.2111, -21.3780] } }, { title: "Orlândia - SP", geometry: { type: "Point", coordinates: [-47.8866, -20.7147] } }, { title: "Palestina - SP", geometry: { type: "Point", coordinates: [-49.4330, -20.3900] } }, { title: "Pitangueiras - SP", geometry: { type: "Point", coordinates: [-48.2216, -21.0094] } }, { title: "Santa Cruz das Palmeiras - SP", geometry: { type: "Point", coordinates: [-47.2486, -21.8269] } } ];
+                for (var i = 0; i < cities.length; i++) { pointSeries.data.push({ geometry: cities[i].geometry, title: cities[i].title }); }
+            });
+
+            // --- NOSSA PRÓPRIA LÓGICA PRA ANIMAR NÚMEROS ---
+            const animateCounter = (element, duration) => {
+                const target = +element.getAttribute('data-target');
+                let startTime = null;
+
+                const step = (timestamp) => {
+                    if (!startTime) startTime = timestamp;
+                    const progress = Math.min((timestamp - startTime) / duration, 1);
+                    const currentValue = Math.floor(progress * target);
+                    // Formata o número pra ter o ponto de milhar
+                    element.innerText = currentValue.toLocaleString('pt-BR');
+                    if (progress < 1) {
+                        window.requestAnimationFrame(step);
+                    }
+                };
+                window.requestAnimationFrame(step);
+            };
+
+            const statsSection = document.getElementById('stats');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        // Pra cada número com o atributo data-target, a gente chama nossa função
+                        document.querySelectorAll('#stats span[data-target]').forEach(el => {
+                            animateCounter(el, 2300);
+                        });
+                        observer.unobserve(statsSection); // Roda só uma vez
+                    }
+                });
+            }, { threshold: 0.5 }); 
+            observer.observe(statsSection);
+        });
+    </script>
+</body>
+</html>

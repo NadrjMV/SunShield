@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clientes - Sun Shield</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" type="image/png" href="assets/images/logo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        light: { background: '#F8FAFC', surface: '#FFFFFF', primary: '#0F172A', secondary: '#64748B', accent: '#2563EB', 'accent-hover': '#1D4ED8' },
+                        dark: { background: '#0d1117', surface: '#161b22', primary: '#E2E8F0', secondary: '#94A3B8', accent: '#38BDF8', 'accent-hover': '#0EA5E9' }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        :root {
+            --bg-background: #F8FAFC; --bg-surface: #FFFFFF;
+            --text-primary: #0F172A; --text-secondary: #64748B;
+            --color-accent: #2563EB; --color-accent-hover: #1D4ED8;
+        }
+        html.dark {
+            --bg-background: #0d1117; --bg-surface: #161b22;
+            --text-primary: #E2E8F0; --text-secondary: #94A3B8;
+            --color-accent: #38BDF8; --color-accent-hover: #0EA5E9;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-background);
+            color: var(--text-primary);
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .text-balance { text-wrap: balance; }
+
+        /* SCROLLBAR PERSONALIZADA */
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: var(--bg-surface); }
+        ::-webkit-scrollbar-thumb { background: var(--color-accent); border-radius: 10px; border: 2px solid var(--bg-surface); }
+        ::-webkit-scrollbar-thumb:hover { background: var(--color-accent-hover); }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header id="header" class="bg-light-surface/80 dark:bg-dark-surface/80 backdrop-blur-xl sticky top-0 left-0 right-0 z-50 transition-all duration-300 border-b border-slate-200 dark:border-white/10">
+        <div class="container mx-auto px-6">
+            <div class="flex items-center justify-between h-20">
+                <a href="index.html"><img src="assets/images/logo.png" alt="Sun Shield Logo" class="h-14 w-auto"></a>
+                <nav class="hidden lg:flex items-center gap-2">
+                    <a href="index.html" class="text-light-secondary dark:text-dark-secondary hover:text-light-accent dark:hover:text-dark-accent font-medium transition-colors px-4 py-2 rounded-md">Home</a>
+                    <a href="servicos.html" class="text-light-secondary dark:text-dark-secondary hover:text-light-accent dark:hover:text-dark-accent font-medium transition-colors px-4 py-2 rounded-md">Serviços</a>
+                    <a href="clientes.html" class="text-light-accent dark:text-dark-accent font-semibold bg-slate-200 dark:bg-dark-surface px-4 py-2 rounded-md">Clientes</a>
+                    <a href="sobre.html" class="text-light-secondary dark:text-dark-secondary hover:text-light-accent dark:hover:text-dark-accent font-medium transition-colors px-4 py-2 rounded-md">Sobre Nós</a>
+                </nav>
+                <div class="flex items-center gap-4">
+                    <button id="theme-toggle" class="h-10 w-10 flex items-center justify-center rounded-full bg-slate-200 dark:bg-dark-surface text-light-primary dark:text-dark-primary">
+                        <i data-lucide="sun" class="hidden dark:block"></i>
+                        <i data-lucide="moon" class="block dark:hidden"></i>
+                    </button>
+                    <a href="contato.html" class="hidden lg:inline-block bg-light-accent hover:bg-light-accent-hover dark:bg-dark-accent dark:hover:bg-dark-accent-hover text-white font-bold py-2.5 px-6 rounded-full transition-all duration-300">Fale Conosco</a>
+                    <button id="mobile-menu-button" class="lg:hidden text-light-primary dark:text-dark-primary"><i data-lucide="menu" class="h-7 w-7"></i></button>
+                </div>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden lg:hidden bg-light-surface/95 dark:bg-dark-surface/95 backdrop-blur-sm">
+             <nav class="flex flex-col">
+                <a href="index.html" class="text-light-primary dark:text-dark-primary py-4 text-center border-b border-slate-200 dark:border-white/10">Home</a>
+                <a href="servicos.html" class="text-light-primary dark:text-dark-primary py-4 text-center border-b border-slate-200 dark:border-white/10">Serviços</a>
+                <a href="clientes.html" class="text-light-primary dark:text-dark-primary py-4 text-center border-b border-slate-200 dark:border-white/10">Clientes</a>
+                <a href="sobre.html" class="text-light-primary dark:text-dark-primary py-4 text-center">Sobre Nós</a>
+                 <div class="p-4">
+                     <a href="contato.html" class="block text-center w-full bg-light-accent dark:bg-dark-accent text-white font-bold py-3 px-6 rounded-full">Fale Conosco</a>
+                 </div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="py-24 text-center bg-light-surface dark:bg-dark-surface">
+            <div class="container mx-auto px-6">
+                <h1 class="text-4xl lg:text-5xl font-bold mb-4 text-balance">Parceiros que Confiam em Nossa Excelência</h1>
+                <p class="text-lg text-light-secondary dark:text-dark-secondary max-w-3xl mx-auto text-balance">
+                    Na Sun Shield, nossa missão é oferecer monitoramento de ativos, segurança patrimonial e controle de acesso de alto nível. Empresas de diversos setores já confiam em nossos serviços para garantir a segurança e a proteção de seus bens mais valiosos.
+                </p>
+            </div>
+        </section>
+
+        <section class="py-20">
+            <div class="container mx-auto px-6">
+                <h2 class="text-3xl font-bold text-center mb-12">Alguns de Nossos Clientes</h2>
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 items-center">
+                    
+                    <div class="bg-light-surface dark:bg-dark-surface p-6 rounded-xl border border-slate-200 dark:border-white/10 flex justify-center items-center h-32 transition hover:shadow-xl hover:-translate-y-2 group">
+                        <img src="https://sunshield.com.br/wp-content/uploads/2024/12/2024-CS_Website_Logo-Brazil-04-1024x236.webp" alt="Logo Canadian Solar" class="max-h-12 lg:max-h-14 w-auto object-contain">
+                    </div>
+                    <div class="bg-light-surface dark:bg-dark-surface p-6 rounded-xl border border-slate-200 dark:border-white/10 flex justify-center items-center h-32 transition hover:shadow-xl hover:-translate-y-2 group">
+                        <img src="https://sunshield.com.br/wp-content/uploads/2024/12/LOGO_RAIZEN_RGB-1024x515.webp" alt="Logo Raízen" class="max-h-16 lg:max-h-20 w-auto object-contain">
+                    </div>
+                    <div class="bg-light-surface dark:bg-dark-surface p-6 rounded-xl border border-slate-200 dark:border-white/10 flex justify-center items-center h-32 transition hover:shadow-xl hover:-translate-y-2 group">
+                        <img src="https://sunshield.com.br/wp-content/uploads/2024/12/axis_logo_header.png" alt="Logo Axis" class="max-h-10 lg:max-h-12 w-auto object-contain">
+                    </div>
+                    <div class="bg-light-surface dark:bg-dark-surface p-6 rounded-xl border border-slate-200 dark:border-white/10 flex justify-center items-center h-32 transition hover:shadow-xl hover:-translate-y-2 group">
+                        <img src="https://sunshield.com.br/wp-content/uploads/2024/12/Ivi-Logo-Ajustado.webp" alt="Logo Ivi Energia" class="max-h-16 lg:max-h-20 w-auto object-contain">
+                    </div>
+                    <div class="bg-light-surface dark:bg-dark-surface p-6 rounded-xl border border-slate-200 dark:border-white/10 flex justify-center items-center h-32 transition hover:shadow-xl hover:-translate-y-2 group">
+                        <img src="https://sunshield.com.br/wp-content/uploads/2024/12/Recurrent-Energy-logo-768x287-1.webp" alt="Logo Recurrent Energy" class="max-h-12 lg:max-h-14 w-auto object-contain">
+                    </div>
+                     <div class="bg-light-surface dark:bg-dark-surface p-6 rounded-xl border border-slate-200 dark:border-white/10 flex justify-center items-center h-32 transition hover:shadow-xl hover:-translate-y-2 group">
+                        <img src="https://sunshield.com.br/wp-content/uploads/2024/12/1-1c77738a.webp" alt="Logo MvPower" class="max-h-16 lg:max-h-20 w-auto object-contain">
+                    </div>
+                    <div class="bg-light-surface dark:bg-dark-surface p-6 rounded-xl border border-slate-200 dark:border-white/10 flex justify-center items-center h-32 transition hover:shadow-xl hover:-translate-y-2 group">
+                        <img src="https://sunshield.com.br/wp-content/uploads/2024/12/sparta-removebg-preview.webp" alt="Logo Sparta Energy" class="max-h-16 lg:max-h-20 w-auto object-contain">
+                    </div>
+                    <div class="bg-light-surface dark:bg-dark-surface p-6 rounded-xl border border-slate-200 dark:border-white/10 flex justify-center items-center h-32 transition hover:shadow-xl hover:-translate-y-2 group">
+                        <img src="https://sunshield.com.br/wp-content/uploads/2024/12/LOG_SINDICATO_RURAL-removebg-preview.webp" alt="Logo Sindicato Rural" class="max-h-16 lg:max-h-20 w-auto object-contain">
+                    </div>
+                    <div class="bg-light-surface dark:bg-dark-surface p-6 rounded-xl border border-slate-200 dark:border-white/10 flex justify-center items-center h-32 transition hover:shadow-xl hover:-translate-y-2 group">
+                        <img src="https://sunshield.com.br/wp-content/uploads/2025/03/LOGO-FARO-ENERGY-1.png" alt="Logo Faro Energy" class="max-h-20 lg:max-h-24 w-auto object-contain">
+                    </div>
+                    <div class="bg-light-surface dark:bg-dark-surface p-6 rounded-xl border border-slate-200 dark:border-white/10 flex justify-center items-center h-32 transition hover:shadow-xl hover:-translate-y-2 group">
+                        <img src="https://sunshield.com.br/wp-content/uploads/2025/03/Paraty-1.png" alt="Logo Paraty Energia" class="max-h-16 lg:max-h-20 w-auto object-contain">
+                    </div>
+                    <div class="bg-light-surface dark:bg-dark-surface p-6 rounded-xl border border-slate-200 dark:border-white/10 flex justify-center items-center h-32 transition hover:shadow-xl hover:-translate-y-2 group">
+                        <img src="https://sunshield.com.br/wp-content/uploads/2024/12/gg-home-banner.webp" alt="Logo Grupo Gera" class="max-h-12 lg:max-h-14 w-auto object-contain invert dark:invert-0">
+                    </div>
+                    <div class="bg-light-surface dark:bg-dark-surface p-6 rounded-xl border border-slate-200 dark:border-white/10 flex justify-center items-center h-32 transition hover:shadow-xl hover:-translate-y-2 group">
+                        <img src="https://sunshield.com.br/wp-content/uploads/2025/03/sv_logo_retangular-1.png" alt="Logo SV (Solarvolt)" class="max-h-16 lg:max-h-20 w-auto object-contain">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-24 bg-light-surface dark:bg-dark-surface">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl lg:text-4xl font-bold">O Que Nossos Clientes Dizem</h2>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                    <div class="bg-light-background dark:bg-dark-background p-8 rounded-xl border border-slate-200 dark:border-white/10">
+                        <i data-lucide="quote" class="h-8 w-8 text-light-accent dark:text-dark-accent mb-4"></i>
+                        <p class="text-light-secondary dark:text-dark-secondary mb-6">"A equipe da Sun Shield transformou nossa abordagem de segurança. O monitoramento remoto é incrivelmente eficaz e a resposta a incidentes é imediata. Finalmente temos a tranquilidade que precisávamos."</p>
+                        <div>
+                            <p class="font-bold">Ana Júlia Queiroz</p>
+                            <p class="text-sm text-light-secondary dark:text-dark-secondary">Diretora de Operações, Setor de Energia</p>
+                        </div>
+                    </div>
+                    <div class="bg-light-background dark:bg-dark-background p-8 rounded-xl border border-slate-200 dark:border-white/10">
+                        <i data-lucide="quote" class="h-8 w-8 text-light-accent dark:text-dark-accent mb-4"></i>
+                        <p class="text-light-secondary dark:text-dark-secondary mb-6">"Desde que implementamos o controle de acesso e a vigilância patrimonial da Sun Shield, nossos registros de perdas caíram drasticamente. Profissionalismo e tecnologia de ponta."</p>
+                        <div>
+                            <p class="font-bold">Marcos Vinícius</p>
+                            <p class="text-sm text-light-secondary dark:text-dark-secondary">Gerente de Segurança, Agronegócio</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-20">
+            <div class="container mx-auto px-6">
+                 <div class="bg-light-surface dark:bg-dark-surface rounded-2xl shadow-xl p-12 text-center border border-slate-200 dark:border-white/10">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-4 text-balance">Sua Empresa Pode Ser a Próxima</h2>
+                    <p class="text-lg text-light-secondary dark:text-dark-secondary mb-8 max-w-3xl mx-auto">
+                        Seja parte de um grupo exclusivo de empresas que priorizam a segurança e a tranquilidade com soluções personalizadas.
+                    </p>
+                    <a href="contato.html" class="bg-light-accent hover:bg-light-accent-hover dark:bg-dark-accent dark:hover:bg-dark-accent-hover text-white font-bold py-3 px-8 rounded-full text-lg transition-transform hover:scale-105">Proteja Seus Ativos Agora</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="text-light-secondary dark:text-dark-secondary">
+        <div class="container mx-auto px-6 py-8 text-center border-t border-slate-200 dark:border-white/10">
+             <a href="index.html" class="inline-block mb-6"><img src="assets/images/logo.png" alt="Sun Shield Logo" class="h-12 w-auto"></a>
+            <p>Copyright &copy; <span id="year"></span> Sun Shield. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            lucide.createIcons();
+
+            // LÓGICA DO TEMA LIGHT/DARK
+            const themeToggleBtn = document.getElementById('theme-toggle');
+            const htmlEl = document.documentElement;
+            const applyTheme = (theme) => {
+                htmlEl.className = theme;
+                localStorage.setItem('theme', theme);
+            };
+            themeToggleBtn.addEventListener('click', () => {
+                const currentTheme = htmlEl.classList.contains('dark') ? '' : 'dark';
+                applyTheme(currentTheme);
+            });
+            const savedTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : '');
+            applyTheme(savedTheme);
+            
+            // LÓGICA DO MENU MOBILE
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenuButton.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+            document.querySelectorAll('#mobile-menu a').forEach(link => {
+                link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+            });
+            
+            document.getElementById('year').textContent = new Date().getFullYear();
+        });
+    </script>
+</body>
+</html>

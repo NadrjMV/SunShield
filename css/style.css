@@ -1,0 +1,149 @@
+/* css/style.css */
+
+/* a base da casa, tudo organizado */
+:root {
+    --primary-color: #0d6efd; /* Um azul mais vibrante e moderno */
+    --secondary-color: #0a2942;
+    --accent-color: #fca311;
+    --text-color: #e5e5e5;
+    --background-color: #02182B;
+    --font-family: 'Poppins', sans-serif;
+}
+
+/* Reset básico e configurações globais */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+    font-family: var(--font-family);
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.7;
+}
+.container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+img { max-width: 100%; display: block; }
+
+/* Header - agora com backdrop-filter pra um toque a mais */
+.main-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    padding: 20px 0;
+    transition: all 0.4s ease;
+}
+.main-header.scrolled {
+    background-color: rgba(10, 41, 66, 0.85);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.3);
+    padding: 15px 0;
+}
+.main-header .container { display: flex; justify-content: space-between; align-items: center; }
+.logo img { height: 55px; transition: height 0.4s ease; }
+.main-header.scrolled .logo img { height: 45px; }
+
+/* Navegação com micro-interação melhorada */
+.main-nav ul { list-style: none; display: flex; gap: 15px; }
+.main-nav a {
+    color: white;
+    text-decoration: none;
+    padding: 5px 10px;
+    font-weight: 500; /* Um pouco mais leve */
+    position: relative;
+    transition: color 0.3s ease;
+}
+.main-nav a:hover { color: var(--accent-color); }
+.main-nav a::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 2px;
+    background-color: var(--accent-color);
+    transition: width 0.3s ease;
+}
+.main-nav a:hover::after { width: 60%; }
+.hamburger { display: none; }
+
+/* Hero Section, mantendo a identidade do seu site */
+.hero {
+    position: relative;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    overflow: hidden;
+}
+.hero-video { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); min-width: 100%; min-height: 100%; z-index: -2; }
+.hero-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(2, 24, 43, 0.9), rgba(2, 24, 43, 0.6)); z-index: -1; }
+.hero-content h1 { font-size: clamp(2rem, 5vw, 3.5rem); margin-bottom: 1rem; font-weight: 700; line-height: 1.2; text-shadow: 0px 4px 15px rgba(0,0,0,0.5); }
+.hero-content p { font-size: clamp(1rem, 2.5vw, 1.25rem); font-weight: 300; margin-bottom: 2rem; max-width: 600px; margin-inline: auto; }
+
+/* Botão de Ação Principal (CTA) */
+.cta-button {
+    display: inline-block;
+    background-color: var(--accent-color);
+    color: var(--background-color);
+    padding: 15px 35px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 700;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+    border: 2px solid var(--accent-color);
+}
+.cta-button:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 10px 20px rgba(252, 163, 17, 0.3);
+    background-color: transparent;
+    color: var(--accent-color);
+}
+
+/* Seções de Conteúdo, mais espaçadas e limpas */
+.content-section { padding: 120px 20px; }
+.content-block { display: flex; gap: 60px; align-items: center; margin-bottom: 120px; }
+.content-block:last-child { margin-bottom: 0; }
+.content-block.reverse { flex-direction: row-reverse; }
+.content-image { flex: 1; }
+.content-image img { border-radius: 15px; box-shadow: 0 15px 30px rgba(0,0,0,0.4); }
+.content-text { flex: 1; }
+.content-text h2 {
+    font-size: 2.8rem;
+    margin-bottom: 20px;
+    line-height: 1.3;
+}
+.content-text h2::after { content: ''; display: block; width: 60px; height: 4px; background-color: var(--accent-color); margin-top: 15px; }
+
+/* Nova seção Sobre Nós */
+.about-section { background-color: var(--secondary-color); padding: 100px 20px; }
+.about-content { display: flex; align-items: center; gap: 60px; }
+.about-text { flex: 1.2; }
+.about-image { flex: 1; }
+.about-image img { border-radius: 15px; box-shadow: 0 15px 30px rgba(0,0,0,0.4); }
+.about-text h2 { font-size: 2.8rem; margin-bottom: 20px; line-height: 1.3; }
+.about-text h2::after { content: ''; display: block; width: 60px; height: 4px; background-color: var(--accent-color); margin-top: 15px; }
+
+/* Seção de Parceiros - a solução definitiva */
+.partners-section { padding: 100px 0; text-align: center; }
+.partners-section h2 { font-size: 2.5rem; margin-bottom: 15px; }
+.partners-section p { max-width: 700px; margin: 0 auto 60px auto; color: #bbb; }
+.partners-scroller { overflow: hidden; -webkit-mask-image: linear-gradient(to right, transparent, white 20%, white 80%, transparent); mask-image: linear-gradient(to right, transparent, white 20%, white 80%, transparent); }
+.scroller-track { display: flex; width: calc(250px * 16); /* 250px por logo * 8 logos * 2 (duplicado) */ animation: scroll 40s linear infinite; }
+@keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(calc(-250px * 8)); } }
+.partner-logo { width: 250px; padding: 0 40px; display: flex; align-items: center; justify-content: center; }
+.partner-logo img { max-height: 60px; width: auto; filter: grayscale(100%) opacity(0.6); transition: all 0.4s ease; }
+.scroller-track:hover { animation-play-state: paused; }
+.partner-logo:hover img { filter: grayscale(0%) opacity(1); transform: scale(1.1); }
+
+/* CTA final e Rodapé */
+.final-cta { padding: 80px 0; text-align: center; background: var(--secondary-color); }
+.final-cta h3 { font-size: 2.2rem; max-width: 600px; margin: 0 auto 30px auto; }
+.main-footer { background-color: #01111d; padding: 30px 0; text-align: center; font-size: 0.9rem; color: #888; }
+
+/* Responsividade */
+@media (max-width: 900px) {
+    .content-block, .content-block.reverse, .about-content { flex-direction: column; text-align: center; gap: 40px; }
+    .content-text h2::after, .about-text h2::after { margin: 15px auto; }
+}

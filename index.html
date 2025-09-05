@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sun Shield - Segurança e Monitoramento de Elite</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="icon" type="image/png" href="assets/images/logo.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class', // Habilita o dark mode baseado em classe
+            theme: {
+                extend: {
+                    colors: {
+                        // Cores para o tema claro
+                        light: {
+                            background: '#F8FAFC', // slate-50
+                            surface: '#FFFFFF', // white
+                            primary: '#0F172A', // slate-900 (texto principal)
+                            secondary: '#64748B', // slate-500 (texto secundário)
+                            accent: '#2563EB', // blue-600
+                            'accent-hover': '#1D4ED8', // blue-700
+                        },
+                        // Cores para o tema escuro
+                        dark: {
+                            background: '#0d1117', // Quase preto
+                            surface: '#161b22', // Um pouco mais claro
+                            primary: '#E2E8F0', // slate-200 (texto principal)
+                            secondary: '#94A3B8', // slate-400 (texto secundário)
+                            accent: '#38BDF8', // sky-400
+                            'accent-hover': '#0EA5E9', // sky-500
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Define as variáveis de cor com base nas classes light/dark */
+        :root {
+            --bg-background: #F8FAFC; --bg-surface: #FFFFFF;
+            --text-primary: #0F172A; --text-secondary: #64748B;
+            --color-accent: #2563EB; --color-accent-hover: #1D4ED8;
+        }
+        html.dark {
+            --bg-background: #0d1117; --bg-surface: #161b22;
+            --text-primary: #E2E8F0; --text-secondary: #94A3B8;
+            --color-accent: #38BDF8; --color-accent-hover: #0EA5E9;
+        }
+
+        /* Aplica as variáveis aos elementos */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-background);
+            color: var(--text-primary);
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .text-balance { text-wrap: balance; }
+        
+        /* --- LOGO SCROLLER CORRIGIDO E FINAL --- */
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        .logos {
+            overflow: hidden; padding: 40px 0; white-space: nowrap; position: relative;
+        }
+        .logos:before, .logos:after {
+            position: absolute; top: 0; width: 150px; height: 100%; content: ""; z-index: 2; pointer-events: none;
+        }
+        .logos:before { left: 0; background: linear-gradient(to left, transparent, var(--bg-background)); }
+        .logos:after { right: 0; background: linear-gradient(to right, transparent, var(--bg-background)); }
+
+        .logos-slide {
+            display: flex;
+            align-items: center;
+            animation: scroll 40s linear infinite;
+        }
+        .logos-slide:hover {
+            animation-play-state: paused;
+        }
+
+        .logos-slide img {
+            height: 45px;
+            width: auto;
+            margin: 0 40px;
+            transition: all 0.4s ease;
+            filter: grayscale(0);
+            filter: contrast(1.1);
+            opacity: 1;
+        }
+        html.light .logos-slide img {
+            filter: grayscale(1) opacity(0.6);
+        }
+        .logos-slide img:hover {
+            filter: grayscale(0);
+            opacity: 1;
+            transform: scale(1.15);
+        }
+        
+        /* Colei a scrollbar aqui também */
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: var(--bg-surface); }
+        ::-webkit-scrollbar-thumb { background: var(--color-accent); border-radius: 10px; border: 2px solid var(--bg-surface); }
+        ::-webkit-scrollbar-thumb:hover { background: var(--color-accent-hover); }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header id="header" class="bg-light-surface/80 dark:bg-dark-surface/80 backdrop-blur-xl fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b border-slate-200 dark:border-white/10">
+        <div class="container mx-auto px-6">
+            <div class="flex items-center justify-between h-20">
+                <a href="index.html"><img src="assets/images/logo.png" alt="Sun Shield Logo" class="h-14 w-auto"></a>
+                
+                <nav class="hidden lg:flex items-center gap-2">
+                    <a href="index.html" class="text-light-accent dark:text-dark-accent font-semibold bg-slate-200 dark:bg-dark-surface px-4 py-2 rounded-md">Home</a>
+                    <a href="servicos.html" class="text-light-secondary dark:text-dark-secondary hover:text-light-accent dark:hover:text-dark-accent font-medium transition-colors px-4 py-2 rounded-md">Serviços</a>
+                    <a href="contato.html" class="text-light-secondary dark:text-dark-secondary hover:text-light-accent dark:hover:text-dark-accent font-medium transition-colors px-4 py-2 rounded-md">Contato</a>
+                    <a href="clientes.html" class="text-light-secondary dark:text-dark-secondary hover:text-light-accent dark:hover:text-dark-accent font-medium transition-colors px-4 py-2 rounded-md">Clientes</a>
+                </nav>
+
+                <div class="flex items-center gap-4">
+                    <button id="theme-toggle" class="h-10 w-10 flex items-center justify-center rounded-full bg-slate-200 dark:bg-dark-surface text-light-primary dark:text-dark-primary">
+                        <i data-lucide="sun" class="hidden dark:block"></i>
+                        <i data-lucide="moon" class="block dark:hidden"></i>
+                    </button>
+                    <a href="#contact" class="hidden lg:inline-block bg-light-accent hover:bg-light-accent-hover dark:bg-dark-accent dark:hover:bg-dark-accent-hover text-white font-bold py-2.5 px-6 rounded-full transition-all duration-300">
+                        Fale Conosco
+                    </a>
+                    <button id="mobile-menu-button" class="lg:hidden text-light-primary dark:text-dark-primary"><i data-lucide="menu" class="h-7 w-7"></i></button>
+                </div>
+            </div>
+        </div>
+        
+        <div id="mobile-menu" class="hidden lg:hidden bg-light-surface/95 dark:bg-dark-surface/95 backdrop-blur-sm">
+            <nav class="flex flex-col">
+                <a href="index.html" class="text-light-primary dark:text-dark-primary py-4 text-center border-b border-slate-200 dark:border-white/10">Home</a>
+                <a href="servicos.html" class="text-light-primary dark:text-dark-primary py-4 text-center border-b border-slate-200 dark:border-white/10">Serviços</a>
+                <a href="#about" class="text-light-primary dark:text-dark-primary py-4 text-center border-b border-slate-200 dark:border-white/10">Sobre Nós</a>
+                <a href="#clients" class="text-light-primary dark:text-dark-primary py-4 text-center">Clientes</a>
+                 <div class="p-4">
+                     <a href="#contact" class="block text-center w-full bg-light-accent dark:bg-dark-accent text-white font-bold py-3 px-6 rounded-full">Fale Conosco</a>
+                 </div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="relative h-screen flex items-center justify-center text-center overflow-hidden">
+            <video autoplay loop muted playsinline class="absolute inset-0 w-full h-full object-cover -z-10 brightness-50">
+                <source src="assets/videos/video.mp4" type="video/mp4">
+            </video>
+            <div class="absolute inset-0 bg-gradient-to-t from-dark-background via-transparent to-transparent"></div>
+            <div class="relative container mx-auto px-6">
+                <div class="max-w-4xl mx-auto">
+                    <h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold text-white leading-tight text-balance">
+                        Segurança de Elite, Tecnologia de Ponta.
+                    </h1>
+                    <p class="text-lg md:text-xl text-dark-secondary max-w-2xl mx-auto mt-6 mb-10 text-balance">
+                        Protegemos seu patrimônio com a máxima eficiência, integrando inteligência, equipes especializadas e tecnologia avançada.
+                    </p>
+                    <a href="#services" class="bg-light-accent hover:bg-light-accent-hover dark:bg-dark-accent dark:hover:bg-dark-accent-hover text-white font-bold py-4 px-10 rounded-full text-lg shadow-lg transition-transform hover:scale-105">
+                        Conheça Nossas Soluções
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section id="services" class="py-24 relative overflow-hidden">
+            <div class="absolute top-0 right-0 -translate-y-1/4 translate-x-1/4 text-slate-500/5 dark:text-sky-500/5" aria-hidden="true">
+                <svg width="600" height="600"><defs><pattern id="patt" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1" fill="currentColor"></circle></pattern></defs><rect width="600" height="600" fill="url(#patt)"></rect></svg>
+            </div>
+            <div class="container mx-auto px-6 relative">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl lg:text-5xl font-bold mb-3 text-balance">Nossas Especialidades</h2>
+                    <p class="text-lg text-light-secondary dark:text-dark-secondary max-w-3xl mx-auto text-balance">Soluções de segurança projetadas para a máxima proteção e eficiência.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
+                    <div class="bg-light-surface dark:bg-dark-surface rounded-2xl group shadow-lg dark:shadow-2xl dark:shadow-black/20 overflow-hidden transition-all duration-300 hover:!scale-105 hover:shadow-2xl dark:hover:shadow-sky-500/10 border border-slate-200 dark:border-white/5">
+                        <div class="relative h-64"><img src="https://sunshield.com.br/wp-content/uploads/2025/06/sun-shield-37-1536x1022.jpg" alt="Segurança Patrimonial" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"></div>
+                        <div class="p-8"><h3 class="text-2xl font-bold mb-3">Segurança Patrimonial</h3><p class="text-light-secondary dark:text-dark-secondary">Proteção robusta para instalações industriais, comerciais e rurais com equipes de vigilância e planos de segurança personalizados.</p></div>
+                    </div>
+                    <div class="bg-light-surface dark:bg-dark-surface rounded-2xl group shadow-lg dark:shadow-2xl dark:shadow-black/20 overflow-hidden transition-all duration-300 hover:!scale-105 hover:shadow-2xl dark:hover:shadow-sky-500/10 border border-slate-200 dark:border-white/5">
+                        <div class="relative h-64"><img src="https://sunshield.com.br/wp-content/uploads/2025/06/sun-shield-18-1536x1022.jpg" alt="Monitoramento 24h" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"></div>
+                        <div class="p-8"><h3 class="text-2xl font-bold mb-3">Monitoramento 24h</h3><p class="text-light-secondary dark:text-dark-secondary">Vigilância remota contínua com tecnologia de ponta, garantindo resposta rápida e eficaz a qualquer atividade suspeita.</p></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="py-24 bg-light-surface dark:bg-dark-surface">
+             <div class="container mx-auto px-6">
+                <div class="flex flex-col lg:flex-row-reverse items-center gap-12 lg:gap-20">
+                    <div class="lg:w-1/2"><img src="https://sunshield.com.br/wp-content/uploads/2025/06/sun-shield-41-1536x1022.jpg" alt="Equipe Sun Shield" class="rounded-2xl shadow-xl w-full h-auto"></div>
+                    <div class="lg:w-1/2">
+                        <span class="font-bold text-light-accent dark:text-dark-accent uppercase tracking-widest">Nosso Compromisso</span>
+                        <h2 class="text-4xl lg:text-5xl font-bold mb-6 mt-2 text-balance">Confiança Forjada em Experiência</h2>
+                        <p class="mb-6 text-lg text-light-secondary dark:text-dark-secondary">Na Sun Shield, a excelência é o nosso padrão. Combinamos o rigor de equipes treinadas com a precisão da tecnologia para oferecer um nível de segurança incomparável.</p>
+                        <div class="space-y-6 border-l-4 border-light-accent dark:border-dark-accent pl-6">
+                             <div><h4 class="text-xl font-semibold">Profissionais de Elite</h4><p class="mt-1 text-light-secondary dark:text-dark-secondary">Nossa equipe é certificada e passa por treinamentos contínuos para estar sempre preparada.</p></div>
+                             <div><h4 class="text-xl font-semibold">Tecnologia Integrada</h4><p class="mt-1 text-light-secondary dark:text-dark-secondary">Utilizamos os sistemas mais avançados de monitoramento e controle para uma proteção 360°.</p></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="clients" class="py-20">
+            <div class="container mx-auto px-6"><div class="text-center mb-8"><h2 class="text-3xl font-bold">Parceiros que Confiam em Nosso Trabalho</h2></div></div>
+            <div class="logos">
+                <div class="logos-slide">
+                    <img src="https://sunshield.com.br/wp-content/uploads/2024/12/2024-CS_Website_Logo-Brazil-04-1024x236.webp" alt="Logo Canadian Solar">
+                    <img src="https://sunshield.com.br/wp-content/uploads/2024/12/LOGO_RAIZEN_RGB-1024x515.webp" alt="Logo Raízen">
+                    <img src="https://sunshield.com.br/wp-content/uploads/2024/12/Ivi-Logo-Ajustado.webp" alt="Logo Ivi">
+                    <img src="https://sunshield.com.br/wp-content/uploads/2024/12/Recurrent-Energy-logo-768x287-1.webp" alt="Logo Recurrent Energy">
+                    <img src="https://sunshield.com.br/wp-content/uploads/2025/03/LOGO-FARO-ENERGY-2.png" alt="Logo Faro Energy">
+                    <img src="https://sunshield.com.br/wp-content/uploads/2024/12/axis_logo_header.png" alt="Logo Axis">
+                    <img src="https://sunshield.com.br/wp-content/uploads/2025/03/sv_logo_retangular-2.png" alt="Logo SV">
+                </div>
+            </div>
+        </section>
+        
+        <section id="contact" class="py-24 bg-light-surface dark:bg-dark-surface">
+            <div class="container mx-auto px-6">
+                <div class="text-center">
+                     <h2 class="text-4xl lg:text-5xl font-bold text-balance">Vamos Conversar?</h2>
+                    <p class="text-lg text-light-secondary dark:text-dark-secondary mt-4 max-w-2xl mx-auto text-balance">
+                        Siga-nos nas redes para ficar por dentro das novidades ou entre em contato diretamente para uma resposta rápida.
+                    </p>
+                </div>
+                <div class="max-w-4xl mx-auto mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
+                    
+                    <a href="https://wa.me/5516992612626" target="_blank"
+                       class="bg-light-background dark:bg-dark-background p-8 rounded-2xl shadow-lg hover:shadow-xl dark:hover:shadow-emerald-500/10 border border-slate-200 dark:border-white/5 group text-center transition-all duration-300 hover:-translate-y-2">
+                        <div class="inline-block p-4 rounded-full bg-emerald-100 dark:bg-emerald-900/50 mb-4">
+                             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-emerald-500"><path d="M12.01 2.011a10.005 10.005 0 0 1 7.424 16.512l-2.424 2.424-3-3-2.424 2.424a10.005 10.005 0 0 1-11.924-11.924l2.424-2.424 3 3 2.424-2.424A9.955 9.955 0 0 1 12.01 2.011z"></path></svg>
+                        </div>
+                        <h3 class="text-xl font-bold mb-1">WhatsApp</h3>
+                        <p class="text-light-secondary dark:text-dark-secondary">Resposta em minutos</p>
+                    </a>
+
+                    <a href="https://instagram.com/sunshield_seg" target="_blank"
+                       class="bg-light-background dark:bg-dark-background p-8 rounded-2xl shadow-lg hover:shadow-xl dark:hover:shadow-pink-500/10 border border-slate-200 dark:border-white/5 group text-center transition-all duration-300 hover:-translate-y-2">
+                        <div class="inline-block p-4 rounded-full bg-pink-100 dark:bg-pink-900/50 mb-4">
+                            <i data-lucide="instagram" class="h-8 w-8 text-pink-500"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-1">Instagram</h3>
+                        <p class="text-light-secondary dark:text-dark-secondary">Projetos e novidades</p>
+                    </a>
+
+                    <a href="https://br.linkedin.com/company/sunshieldseg" target="_blank"
+                       class="bg-light-background dark:bg-dark-background p-8 rounded-2xl shadow-lg hover:shadow-xl dark:hover:shadow-blue-500/10 border border-slate-200 dark:border-white/5 group text-center transition-all duration-300 hover:-translate-y-2">
+                        <div class="inline-block p-4 rounded-full bg-blue-100 dark:bg-blue-900/50 mb-4">
+                            <i data-lucide="linkedin" class="h-8 w-8 text-blue-500"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-1">LinkedIn</h3>
+                        <p class="text-light-secondary dark:text-dark-secondary">Conexões profissionais</p>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="text-light-secondary dark:text-dark-secondary">
+        <div class="container mx-auto px-6 py-8 text-center border-t border-slate-200 dark:border-white/10">
+             <a href="#" class="inline-block mb-6"><img src="assets/images/logo.png" alt="Sun Shield Logo" class="h-12 w-auto"></a>
+            <nav class="flex justify-center flex-wrap gap-x-6 gap-y-2 mb-6">
+                <a href="#about" class="hover:text-light-accent dark:hover:text-dark-accent transition-colors">Sobre</a>
+                <a href="#services" class="hover:text-light-accent dark:hover:text-dark-accent transition-colors">Serviços</a>
+                <a href="#clients" class="hover:text-light-accent dark:hover:text-dark-accent transition-colors">Clientes</a>
+                <a href="#contact" class="hover:text-light-accent dark:hover:text-dark-accent transition-colors">Contato</a>
+            </nav>
+             <div class="flex justify-center space-x-6 mb-8">
+                <a href="https://br.linkedin.com/company/sunshieldseg" target="_blank" aria-label="LinkedIn" class="hover:text-light-primary dark:hover:text-dark-primary transition-colors"><i data-lucide="linkedin" class="h-6 w-6"></i></a>
+                <a href="https://instagram.com/sunshield_seg" target="_blank" aria-label="Instagram" class="hover:text-light-primary dark:hover:text-dark-primary transition-colors"><i data-lucide="instagram" class="h-6 w-6"></i></a>
+             </div>
+             <p>Copyright &copy; <span id="year"></span> Sun Shield. Todos os direitos reservados. Feito por <a href="https://www.instagram.com/jordanlvs" target="_blank" class="font-semibold hover:text-light-primary dark:hover:text-dark-primary transition-colors">@jordanlvs</a>.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Inicializa os ícones do Lucide
+        lucide.createIcons();
+
+        // --- LÓGICA DO TEMA LIGHT/DARK ---
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const htmlEl = document.documentElement;
+
+        const applyTheme = (theme) => {
+            htmlEl.className = theme;
+            localStorage.setItem('theme', theme);
+        };
+
+        themeToggleBtn.addEventListener('click', () => {
+            const currentTheme = htmlEl.classList.contains('dark') ? '' : 'dark';
+            applyTheme(currentTheme);
+        });
+
+        const savedTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : '');
+        applyTheme(savedTheme);
+        
+        // --- LÓGICA DO SCROLLER DE LOGOS ---
+        const logosContainer = document.querySelector('.logos');
+        if (logosContainer) {
+            const logosSlide = logosContainer.querySelector('.logos-slide');
+            if (logosSlide) {
+                logosSlide.innerHTML += logosSlide.innerHTML;
+            }
+        }
+
+        // --- LÓGICA DO MENU MOBILE ---
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+        
+        // Atualiza o ano no rodapé
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>
